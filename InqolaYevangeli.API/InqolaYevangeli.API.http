@@ -1,0 +1,6 @@
+@InqolaYevangeli.API_HostAddress = http://localhost:5027
+
+GET {{InqolaYevangeli.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
