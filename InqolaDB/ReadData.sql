@@ -16,3 +16,9 @@ begin
 	SELECT * from [Roles]
 end;
 
+--------------------------
+CREATE PROCEDURE [dbo].[spSelectMembers]
+AS
+begin
+	SELECT * from [dbo].[Members]
+end;

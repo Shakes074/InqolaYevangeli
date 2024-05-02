@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InqolaYevangeli.API", "InqolaYevangeli.API\InqolaYevangeli.API.csproj", "{3856223A-6A4E-4296-A403-ED8031EBB5ED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InqolaYevangeli.API", "InqolaYevangeli.API\InqolaYevangeli.API.csproj", "{3856223A-6A4E-4296-A403-ED8031EBB5ED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inqola.Models", "Inqola.Models\Inqola.Models.csproj", "{EED9584A-8486-40D1-A322-7271EF6AA1B6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inqola.Models", "Inqola.Models\Inqola.Models.csproj", "{EED9584A-8486-40D1-A322-7271EF6AA1B6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inqola.DAL", "Inqola.DAL\Inqola.DAL.csproj", "{D4C63005-F43E-435F-B600-E222AC14A49E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inqola.DAL", "Inqola.DAL\Inqola.DAL.csproj", "{D4C63005-F43E-435F-B600-E222AC14A49E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inqola.Interface", "Inqola.Interface\Inqola.Interface.csproj", "{0AE60EBD-6B7F-4B79-939E-C994056DE826}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inqola.Interface", "Inqola.Interface\Inqola.Interface.csproj", "{0AE60EBD-6B7F-4B79-939E-C994056DE826}"
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "InqolaDB", "InqolaDB\InqolaDB.sqlproj", "{3EE7E746-B28F-4232-9AC9-A2BA085D7ECD}"
 EndProject

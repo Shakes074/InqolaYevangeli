@@ -40,9 +40,13 @@ CREATE TABLE Members (
     ID INT IDENTITY(1,1) PRIMARY KEY,
     FirstName VARCHAR(50) NOT NULL,
     LastName VARCHAR(50) NOT NULL,
-    DateOfBirth DATE NOT NULL,
+    MaritalStatus bit NOT NULL,
+    DateOfBirth DATE DEFAULT FORMAT(GETDATE(), 'yyyy-MM-dd')NOT NULL,
     Gender CHAR(1) NOT NULL,
-    JoinDate DATE NOT NULL,
+    Email VARCHAR(50) UNIQUE,
+    Phone VARCHAR(13),
+    [Password] VARCHAR(10),
+    JoinDate DATE DEFAULT FORMAT(GETDATE(), 'yyyy-MM-dd') NOT NULL,
     BranchID INT NOT NULL,
     StatusID INT NOT NULL,
     RoleID INT NOT NULL,
@@ -60,12 +64,14 @@ CREATE TABLE MemberActivities (
     FOREIGN KEY (ActivityID) REFERENCES Activity(ID)
 );
 
-CREATE TABLE MemberStatus (
-    ID INT IDENTITY(1,1) PRIMARY KEY,
-    MemberID INT NOT NULL,
-    StatusID INT NOT NULL,
-    JoiningDate DATE NOT NULL,
-    FOREIGN KEY (MemberID) REFERENCES Members(ID),
-    FOREIGN KEY (StatusID) REFERENCES [Status](ID)
-);
+
+
+--CREATE TABLE MemberStatus (
+    --ID INT IDENTITY(1,1) PRIMARY KEY,
+    --MemberID INT NOT NULL,
+    --StatusID INT NOT NULL,
+    --JoiningDate DATE DEFAULT FORMAT(GETDATE(), 'yyyy-MM-dd')NOT NULL,
+    --FOREIGN KEY (MemberID) REFERENCES Members(ID),
+    --FOREIGN KEY (StatusID) REFERENCES [Status](ID)
+--);
 

@@ -23,7 +23,7 @@ public class RolesController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult GetRoles([FromBody] Role role)
+    public IActionResult AddRole([FromBody] Role role)
     {
         return Ok(_roles.AddRole(role));
     }

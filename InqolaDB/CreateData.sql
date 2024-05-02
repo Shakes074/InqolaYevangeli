@@ -3,9 +3,9 @@ go
 
 INSERT INTO Roles ([Name], [Description])
 VALUES
-    ('Admin', 'System administrator with full access'),
+    ('Super Admin', 'System administrator with full access'),
     ('Branch Manager', 'Manages a specific branch'),
-    ('Member', 'Regular church member');
+    ('Regular User', 'Regular church member');
 
 INSERT INTO Branches ([Name], Province, Country)
 VALUES
@@ -33,6 +33,25 @@ VALUES
     ('Probationary', 'New members on a probationary period', 'Initial evaluation period before full membership'),
     ('Transferring', 'Members in the process of transferring to another branch', 'Requested a branch transfer');
 
+INSERT INTO YourTableName 
+(FirstName, LastName, MaritalStatus, 
+DateOfBirth, Gender, Email, 
+Phone, [Password], JoinDate, 
+BranchID, StatusID, RoleID)
+
+VALUES
+
+    ('John', 'Doe', 1, '1990-05-15', 'M', 'john.doe@example.com', '555-1234', 'password1', '2022-01-01', 5, 4, 3),
+    ('Jane', 'Smith', 0, '2000-11-22', 'F', 'jane.smith@example.com', '555-5678', 'password2', '2021-06-15', 3, 2, 3),
+    ('Michael', 'Johnson', 1, '2010-03-10', 'M', 'michael.johnson@example.com', '555-9012', 'password3', '2020-09-01', 3, 3, 3),
+    ('Emily', 'Williams', 0, '1995-07-18', 'F', 'emily.williams@example.com', '555-3456', 'password4', '2023-02-28', 2, 4, 2),
+    ('David', 'Brown', 1, '2006-12-05', 'M', 'david.brown@example.com', '555-7890', 'password5', '2022-07-10', 2, 4, 1),
+    ('Sarah', 'Davis', 0, '1991-09-30', 'F', 'sarah.davis@example.com', '555-2345', 'password6', '2021-03-20', 8, 3, 2),
+    ('Robert', 'Wilson', 1, '2019-06-12', 'M', 'robert.wilson@example.com', '555-6789', 'password7', '2019-11-05', 3, 5, 3),
+    ('Jessica', 'Anderson', 0, '1988-02-28', 'F', 'jessica.anderson@example.com', '555-0123', 'password8', '2022-09-15', 3, 1, 3),
+    ('Daniel', 'Taylor', 1, '1980-08-20', 'M', 'daniel.taylor@example.com', '555-4567', 'password9', '2021-12-01', 5, 3, 2),
+    ('Olivia', 'Thomas', 0, '2021-04-03', 'F', 'olivia.thomas@example.com', '555-8901', 'password0', '2023-04-01', 1, 2, 3);
+
 INSERT INTO Activity ([Name], [Description])
 VALUES
     ('Sunday Service', 'Attendance at the weekly Sunday service'),
@@ -45,36 +64,6 @@ VALUES
     ('Retreat', 'Attendance at a spiritual retreat'),
     ('Baptism', 'Participation in a baptism ceremony'),
     ('Sealing Ceremony', 'Participation in a sealing ceremony');
-
-INSERT INTO Members (FirstName, LastName, DateOfBirth, Gender, JoinDate, BranchID, StatusID, RoleID)
-VALUES
-    ('John', 'Doe', '1985-05-15', 'M', '2020-03-01', 1, 1, 3), -- Johannesburg Central, Sealed, Member
-    ('Jane', 'Smith', '1992-11-22', 'F', '2022-09-10', 2, 2, 3), -- Cape Town, Welcomed, Member
-    ('Michael', 'Johnson', '1978-07-03', 'M', '2018-02-28', 3, 3, 3), -- Durban, Testifier, Member
-    ('Emily', 'Williams', '2000-12-18', 'F', '2021-06-15', 4, 4, 3), -- Pretoria, Baptized, Member
-    ('David', 'Brown', '1989-03-25', 'M', '2019-10-01', 5, 5, 3), -- Bloemfontein, Waiting for Sealing, Member
-    ('Sarah', 'Jones', '1965-08-12', 'F', '2015-05-20', 1, 1, 3), -- Johannesburg Central, Sealed, Member
-    ('Robert', 'Garcia', '1975-01-30', 'M', '2017-11-01', 6, 3, 2), -- Lusaka, Testifier, Branch Manager
-    ('Amanda', 'Miller', '1998-06-08', 'F', '2023-01-05', 7, 2, 3), -- Nairobi, Welcomed, Member
-    ('Xoli', 'Zulu', '1995-05-15', 'F', '2020-03-01', 1, 1, 3), -- Durban Central, Sealed, Member
-    ('Spe', 'Xulu', '1999-11-22', 'M', '2022-09-10', 2, 2, 3), -- Cape Town, Welcomed, Member
-    ('Christopher', 'Davis', '1982-09-20', 'M', '2016-04-10', 8, 3, 2), -- Gaborone, Testifier, Branch Manager
-    ('Olivia', 'Rodriguez', '1994-03-03', 'F', '2019-07-15', 9, 5, 3); -- Harare, Waiting for Sealing, Member
-
-INSERT INTO MemberAgeGroups (MemberID, AgeGroupID, StartDate, EndDate)
-VALUES
-    (1, 3, '2020-03-01', NULL), -- John Doe, Adult
-    (2, 3, '2022-09-10', NULL), -- Jane Smith, Adult
-    (3, 3, '2018-02-28', NULL), -- Michael Johnson, Adult
-    (4, 1, '2021-06-15', NULL), -- Emily Williams, Youth
-    (5, 3, '2019-10-01', NULL), -- David Brown, Adult
-    (6, 4, '2015-05-20', NULL), -- Sarah Jones, Senior
-    (7, 3, '2017-11-01', NULL), -- Robert Garcia, Adult
-    (8, 1, '2023-01-05', NULL), -- Amanda Miller, Youth
-    (9, 3, '2016-04-10', NULL), -- Christopher Davis, Adult
-    (10, 3, '2019-07-15', NULL), -- Olivia Rodriguez, Adult
-    (11, 2, '2017-09-01', '2021-08-31'), -- New member, Sunday School (historical record)
-    (12, 2, '2021-09-01', NULL); -- New member, Sunday School (current)
 
 INSERT INTO MemberActivities (MemberID, ActivityID)
 VALUES
@@ -90,10 +79,43 @@ VALUES
     (6, 1); -- Sarah Jones, Sunday Service
 
 
+
+/**
+INSERT INTO MemberStatus (MemberID, StatusID, JoiningDate)
+VALUES
+    (1, 1, '2022-01-15'),
+    (5, 2, '2021-06-22'),
+    (3, 5, '2023-03-01'),
+    (8, 2, '2020-09-12'),
+    (1, 5, '2022-11-05');
+**/
+    
+--------------------------
     CREATE PROCEDURE [dbo].[spInsetRole]
 	@Name varchar(200),
 	@Description varchar(200)
 AS
 BEGIN
 	INSERT INTO ROLES VALUES (@Name, @Description)
+END;
+
+--------------------------
+    CREATE PROCEDURE [dbo].[spInsertMember]
+	@FirstName varchar(200),
+	@LastName varchar(200),
+	@DateOfBirth date,
+	@Gender char,
+	@JoinDate date,
+	@BranchID int,
+	@RoleID int,
+    @StatusID int 
+AS
+BEGIN
+	INSERT INTO MEMBERS 
+	VALUES 
+	
+	(@FirstName, @LastName,
+	 FORMAT(@DateOfBirth, 'yyyy-MM-dd'), @Gender,
+	 FORMAT(@JoinDate, 'yyyy-MM-dd'), @BranchID, @RoleID, @StatusID)
+
 END;
