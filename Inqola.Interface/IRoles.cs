@@ -4,6 +4,7 @@ namespace Inqola.Interface;
 
 public interface IRoles
 {
-    public List<Role>GetRoles();
     public bool AddRole(Role role);
+    public List<Role>GetRoles();
+    
 }

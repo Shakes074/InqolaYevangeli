@@ -41,7 +41,8 @@ public class MemberDAL : IMember
                 { "@JoinDate", member.JoinDate },
                 { "@BranchID", member.BranchID },
                 { "@StatusID", member.StatusID },
-                { "@RoleID", member.RoleID }
+                { "@RoleID", member.RoleID },
+                { "EmplymentStatusID", member.EmplymentStatusID}
             };
 
         return connection.Execute("spInsertMember", parameters, commandType: CommandType.StoredProcedure) > 0;
@@ -127,15 +128,17 @@ public class MemberDAL : IMember
 
         return connection.Query<Member>("spSelectByAdult", commandType: CommandType.StoredProcedure).ToList();
     }
+    public List<Member> GetMemberByEmploymentStatus(int id) 
+    {
+        using var connection = GetConnection();
 
+        var parameters = new Dictionary<string, object>()
+            {
+                { "@ID", id },
+            };
 
-
-    // UPDATE MEMBER SURNAME         UpdateMemberSurname
-    // UPDATE MEMBER PASSWORD        UpdateMemberPassword
-    // UPDATE MEMBER BRANCH          UpdateMemberBranch
-    // UPDATE MEMBER STATUS          UpdateMemberStatus
-    // UPDATE MEMBER ROLE            UpdateMemberRole
-    // UPDATE MEMBER MARITAL STATUS  UpdateMemberMaritalStatus
+        return connection.Query<Member>("spSelectByEmploymentStatus", parameters, commandType: CommandType.StoredProcedure).ToList();
+    }
 
     // Updating members details surname, branch, status, passowrd, role and maritalStatus
     public bool UpdateMemberSurname(string Surname, int Id)
@@ -149,7 +152,37 @@ public class MemberDAL : IMember
 
         return connection.Execute("spUpdateMemberSurname", parameters, commandType: CommandType.StoredProcedure) > 0;
     }
-   
+    public bool UpdateMemberMaritalStatus(int MariStat, int Id) 
+    {
+        using var connection = GetConnection();
+        var parameters = new Dictionary<string, object>()
+            {
+                { "@MariStat", MariStat },
+                { "@ID", Id }
+            };
+
+        return connection.Execute("spUpdateMaritalStatus", parameters, commandType: CommandType.StoredProcedure) > 0;
+    }
+    public bool UpdateMemberEmail(string Email, int Id) 
+    {
+        using var connection = GetConnection();
+        var parameters = new Dictionary<string, object>()
+            {
+                { "@Email", Email },
+                { "@ID", Id }
+            };
+
+        return connection.Execute("spUpdateMemberEmail", parameters, commandType: CommandType.StoredProcedure) > 0;
+    }
+    public bool UpdateMemberPhone(string Phone, int Id) 
+    { 
+        using var connection = GetConnection();
+        var parameters = new Dictionary<string, object>() 
+            { { "@Phone", Phone },
+              { "@ID", Id }
+            };
+        return connection.Execute("spUpdateMemberPhone", parameters,commandType: CommandType.StoredProcedure) > 0;
+    }
     public bool UpdateMemberPassword(string Password, int Id)
     {
         using var connection = GetConnection();
@@ -161,7 +194,6 @@ public class MemberDAL : IMember
 
         return connection.Execute("spUpdateMemberPassword", parameters, commandType: CommandType.StoredProcedure) > 0;
     }
-
     public bool UpdateMemberBranch(int BranchId, int Id)
     { 
         using var connection = GetConnection();
@@ -171,63 +203,49 @@ public class MemberDAL : IMember
             { "@ID", Id}
         };
 
-        return connection.Execute("spUpdateMemberBramch", parameters, commandType: CommandType.StoredProcedure) > 0;
+        return connection.Execute("spUpdateMemberBranch", parameters, commandType: CommandType.StoredProcedure) > 0;
     }
-
     public bool UpdateMemberStatus(int StatusId, int Id)
     {
         using var connection = GetConnection();
         var parameters = new Dictionary<string, object>()
         {
-            { "@BranchId", StatusId },
+            { "@StatusID", StatusId },
             { "@ID", Id}
         };
 
         return connection.Execute("spUpdateMemberStatus", parameters, commandType: CommandType.StoredProcedure) > 0;
     }
-
-
-
-
-
-
-
-
-
-
-
-    /**public bool DeleteMember(int id)
+    public bool UpdateMemberRole(int RoleID, int Id) 
     {
-        return true;
+        using var connection = GetConnection();
+        var parameter = new Dictionary<string, object>() 
+        {
+            { "@RoleId", RoleID  },
+            { "@ID", Id  }
+        };
+        return connection.Execute("spUpdateMemberRole", parameter, commandType: CommandType.StoredProcedure) >0;
     }
-    
-
-    public bool AddMemberActivity(MemberActivity activity)
-    {
-        return activity != null;
-    }
-    public bool DeleteMemberActivity(int memberId)
-    {
-        return true;
-    }
-    
-
-    public List<MemberActivity> GetMembersActivities(int memberId)
-    {
-        throw new NotImplementedException();
-    }
-    public List<MemberActivity> GetMemberActivities(int memberId)
-    {
-        throw new NotImplementedException();
-    }
-    public List<MemberActivity> GetActivitiesByMembers(int memberId)
-    {
-        throw new NotImplementedException();
+    public bool UpdateEmploymentStatus(int StatusId, int Id) 
+    { 
+        using var connect = GetConnection();
+        var parameters = new Dictionary<string, object>() 
+        {
+            { "@EmployeeID", StatusId},
+            { "@ID", Id}
+        };
+        return connect.Execute("spUpdateEmploymentStatus", parameters, commandType: CommandType.StoredProcedure) > 0;
     }
 
-
-    public bool UpdateMemberActivity(MemberActivity activity)
+    // Disable member who is not active, passed away or has leaved the church
+    public bool DisableMember(int Id)
     {
-        throw new NotImplementedException();
-    }*/
+        using var connect = GetConnection();
+        var parameters = new Dictionary<string, object>()
+        {
+            { "@ID", Id}
+        };
+        return connect.Execute("spDisableMember", parameters, commandType: CommandType.StoredProcedure) > 0;
+    }
+
 }

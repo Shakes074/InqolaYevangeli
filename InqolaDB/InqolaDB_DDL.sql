@@ -34,7 +34,6 @@ CREATE TABLE Activity (
     [Description] VARCHAR(200) NOT NULL
 );
 
-
 -- Create the Members table
 CREATE TABLE Members (
     ID INT IDENTITY(1,1) PRIMARY KEY,
@@ -50,9 +49,11 @@ CREATE TABLE Members (
     BranchID INT NOT NULL,
     StatusID INT NOT NULL,
     RoleID INT NOT NULL,
+    EmplymentStatusID int NOT NULL,
     FOREIGN KEY (BranchID) REFERENCES Branches(ID),
     FOREIGN KEY (StatusID) REFERENCES [Status](ID),
-    FOREIGN KEY (RoleID) REFERENCES Roles(ID)
+    FOREIGN KEY (RoleID) REFERENCES Roles(ID),
+    FOREIGN KEY (EmplymentStatusID) REFERENCES EmploymentStatus(ID)
 );    
 
 -- Create the MemberActivities table
@@ -63,6 +64,14 @@ CREATE TABLE MemberActivities (
     FOREIGN KEY (MemberID) REFERENCES Members(ID),
     FOREIGN KEY (ActivityID) REFERENCES Activity(ID)
 );
+
+CREATE TABLE EmployeeStatus(
+ID int identity (1,1) primary key,
+emplyment varchar(50),
+discription varchar(150)
+);
+
+
 
 
 

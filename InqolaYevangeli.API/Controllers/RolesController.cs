@@ -16,15 +16,17 @@ public class RolesController : ControllerBase
         _roles = roles;
     }
 
+    [HttpPost]
+    public IActionResult AddRole([FromBody] Role role)
+    {
+        return Ok(_roles.AddRole(role));
+    }
+
     [HttpGet]
     public IActionResult GetRoles()
     {
         return Ok(_roles.GetRoles());
     }
 
-    [HttpPost]
-    public IActionResult AddRole([FromBody] Role role)
-    {
-        return Ok(_roles.AddRole(role));
-    }
+    
 }

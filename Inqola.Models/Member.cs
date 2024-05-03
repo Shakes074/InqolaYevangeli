@@ -15,5 +15,5 @@ public class Member
     public int BranchID { get; set; }
     public int StatusID { get; set; }
     public int RoleID { get; set; }
-    
+    public int EmplymentStatusID { get; set; }   
 }

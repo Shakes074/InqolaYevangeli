@@ -77,16 +77,39 @@ public class MemberController : ControllerBase
     {
         return Ok(_member.GetMemberByAdult());
     }
+    // GET MEMBER BY EMPLOYMENT STATUS
+    [HttpGet("GetMemberByEmploymentStatus")]
+    public IActionResult GetMemberByEmploymentStatusList(int id) 
+    {
+        return Ok(_member.GetMemberByEmploymentStatus(id));
+    }
 
+    
+    
     // UPDATE MEMBER SURNAME
     [HttpPut("UpdateMemberSurname")]
     public IActionResult UpdateMemberSurname(string Surname, int Id)
     {
         return Ok(_member.UpdateMemberSurname(Surname, Id));
     }
-    
-    
-    
+    // UPDATE MARITAL STATUS
+    [HttpPut("UpdateMaritalStatus")]
+    public IActionResult UpdateMemberMaritalStatus(int MariStat, int Id)
+    {
+        return Ok(_member.UpdateMemberMaritalStatus(MariStat, Id));
+    }
+    // UPDATE MEMBERS' EMAIL
+    [HttpPut("UpdateMemberEmail")]
+    public IActionResult UpdateMemberEmail(string Email, int Id)
+    {
+        return Ok(_member.UpdateMemberEmail(Email, Id));
+    }
+    // UPDATE MEMBER PHONE NUMBER
+    [HttpPut("UpdateMemberPhone")]
+    public IActionResult UpdateMemberPhone(string Phone, int Id) 
+    {
+        return Ok(_member.UpdateMemberPhone(Phone, Id));
+    }
     // UPDATE MEMBER PASSWORD
     [HttpPut("UpdateMemberPassword")]
     public IActionResult UpdateMemberPassword(string Password, int Id)
@@ -105,31 +128,24 @@ public class MemberController : ControllerBase
     {
         return Ok(_member.UpdateMemberStatus( StatusId, Id));
     }
-    
-    
-    
-    
-    /*
-    
-    
-    // UPDATE MEMBER STATUS
+    // UPDATE MEMBER ROLE
     [HttpPut("UpdateMemberRole")]
-    public IActionResult UpdateMemberRole(int MemberRoleId, int id)
+    public IActionResult UpdateMemberRole(int RoleId, int Id) 
     {
-        return Ok(_member.UpdateMemberSurname(MemberRoleId, id));
+        return Ok(_member.UpdateMemberRole(RoleId, Id));
     }
-    // UPDATE MEMBER STATUS
-    [HttpPut("UpdateMemberMaritalStatus")]
-    public IActionResult UpdateMemberMaritalStatus(int MaritalStatusId, int Id)
+    // UPDATE MEMBER EMPLOYMENT STATUS
+    [HttpPut("UpdateMembereEmPStatus")]
+    public IActionResult UpdateEmploymentStatus(int StatusId, int Id)
     {
-        return Ok(_member.UpdateMemberSurname(MaritalStatusId, Id));
+        return Ok(_member.UpdateEmploymentStatus(StatusId, Id));
+    }    
+    
+    // DELETE MEMBER 
+    [HttpDelete("Achieve Member")]
+    public IActionResult DisableMember(int Id)
+    {
+        return Ok(_member.DisableMember(Id));
     }
 
-
-
-    // DELETE api/<MemberController>/5
-    [HttpDelete("{id}")]
-    public void Delete(int id)
-    {
-    }*/
 }

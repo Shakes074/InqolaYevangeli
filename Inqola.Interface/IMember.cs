@@ -18,52 +18,20 @@ public interface IMember
     List<Member> GetMemberByYouth();// Done
     List<Member> GetMemberBySundaySchool();// done
     List<Member> GetMemberByAdult(); // done
+    List<Member> GetMemberByEmploymentStatus(int id); // done
 
-    // UPDATE MEMBER SURNAME         UpdateMemberSurname
-    // UPDATE MEMBER PASSWORD        UpdateMemberPassword
-    // UPDATE MEMBER BRANCH          UpdateMemberBranch
-    // UPDATE MEMBER STATUS          UpdateMemberStatus
-    // UPDATE MEMBER ROLE            UpdateMemberRole
-    // UPDATE MEMBER MARITAL STATUS  UpdateMemberMaritalStatus
-
-    bool UpdateMemberSurname(string Surname, int Id);
-    bool UpdateMemberPassword(string Password, int Id);
-    bool UpdateMemberBranch(int BranchId, int Id);
-    bool UpdateMemberStatus(int StatusId, int Id);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    /*
+    //Updating members details surname, marriage status, email, phone number, password, branchID, statusId, roleId and employment status.
+    bool UpdateMemberSurname(string Surname, int Id); // done
+    bool UpdateMemberMaritalStatus(int MarStatus, int Id); // done
+    bool UpdateMemberEmail(string Email, int Id); // done
+    bool UpdateMemberPhone(string Phone, int Id); // done
+    bool UpdateMemberPassword(string Password, int Id); // done
+    bool UpdateMemberBranch(int BranchId, int Id); // done
+    bool UpdateMemberStatus(int StatusId, int Id); // done
+    bool UpdateMemberRole(int RoleId, int Id); // done
+    bool UpdateEmploymentStatus(int StatusId, int Id); // done
     
-    bool DeleteMember(int id);
+    //Disabling members by  deleting
+    bool DisableMember(int Id); // done
     
-
-    // Activity for the current member
-    List<MemberActivity> GetMemberActivities(int memberId);
-    bool AddMemberActivity(MemberActivity activity);
-    bool DeleteMemberActivity(int memberId);
-    bool UpdateMemberActivity(MemberActivity activity);
-
-    // Statuse for current member
-
-    List<MemberStatus> GetMemberStatuses(int memberId);
-    bool AddMemberStatus(MemberStatus status);
-
-    */
 }

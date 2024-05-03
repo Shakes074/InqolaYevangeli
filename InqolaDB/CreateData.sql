@@ -78,6 +78,13 @@ VALUES
     (5, 5), -- David Brown, Youth Program
     (6, 1); -- Sarah Jones, Sunday Service
 
+INSERT INTO EmployeeStatus (emplyment, discription)
+VALUES
+    ('Student', 'Currently enrolled as a student in an educational institution'),
+    ('Unemployed', 'Not currently employed or seeking employment'),
+    ('Employed', 'Currently employed and working for an organization');
+
+
 
 
 /**
@@ -91,31 +98,5 @@ VALUES
 **/
     
 --------------------------
-    CREATE PROCEDURE [dbo].[spInsetRole]
-	@Name varchar(200),
-	@Description varchar(200)
-AS
-BEGIN
-	INSERT INTO ROLES VALUES (@Name, @Description)
-END;
-
---------------------------
-    CREATE PROCEDURE [dbo].[spInsertMember]
-	@FirstName varchar(200),
-	@LastName varchar(200),
-	@DateOfBirth date,
-	@Gender char,
-	@JoinDate date,
-	@BranchID int,
-	@RoleID int,
-    @StatusID int 
-AS
-BEGIN
-	INSERT INTO MEMBERS 
-	VALUES 
-	
-	(@FirstName, @LastName,
-	 FORMAT(@DateOfBirth, 'yyyy-MM-dd'), @Gender,
-	 FORMAT(@JoinDate, 'yyyy-MM-dd'), @BranchID, @RoleID, @StatusID)
-
-END;
+    
+  

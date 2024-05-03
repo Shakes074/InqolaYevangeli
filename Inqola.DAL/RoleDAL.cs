@@ -21,6 +21,13 @@ public class RoleDAL : IRoles
         return new SqlConnection(_config.GetConnectionString("default"));
     }
 
+    public bool AddRole(Role role)
+    {
+        using var connection = GetConnection();
+
+        return connection.Execute("spInsetRole", new { role.Name, role.Description }, commandType: CommandType.StoredProcedure) > 0;
+    }
+
     public List<Role> GetRoles()
     {
         using var connection = GetConnection();
@@ -28,10 +35,4 @@ public class RoleDAL : IRoles
         return connection.Query<Role>("spSelectRoles", commandType: CommandType.StoredProcedure).ToList();
     }
 
-    public bool AddRole(Role role)
-    {
-        using var connection = GetConnection();
-
-        return connection.Execute("spInsetRole", new {role.Name, role.Description} ,commandType: CommandType.StoredProcedure) > 0;
-    }
 }
