@@ -1,0 +1,136 @@
+﻿@page "/activity"
+@using Inqola.Models;
+
+<h3>Activity</h3>
+
+<p role="status">Current count: @currentCount</p>
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Launch demo modal
+</button>
+
+<!-- Add Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="post" @onsubmit="AddActivity" @formname="AddActivity-form">
+
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Activity</label>
+                        <InputText @bind-Value="activity!.Name" placeholder="What type of activity" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
+                        <InputTextArea @bind-Value="activity!.Description" rows="3"></InputTextArea>
+                    </div>
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" @onclick="AddActivity">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Update Modal -->
+<div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form EditContext="editContext">
+
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Activity</label>
+                        <InputText @bind-Value="activity!.Name" placeholder="What type of activity" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
+                        <InputTextArea @bind-Value="activity!.Description" rows="3"></InputTextArea>
+                    </div>
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" @onclick="AddActivity">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var activity in activitylist)
+        {
+            <tr>
+                <td>@activity.Name</td>
+                <td>@activity.Description</td>
+                <button data-bs-toggle="modal" data-bs-target="#updateModal" type="button" class="btn btn-primary" @onclick="()=>OnUpdate(activity)">Update</button>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    private EditContext? editContext;
+    [SupplyParameterFromForm]
+    public Inqola.Models.Activity activity { get; set; }
+
+    private List<Inqola.Models.Activity> activitylist = default;
+    private int currentCount = 0;
+
+    // displaying activities from the list
+    protected override async Task OnInitializedAsync()
+    {
+        activity = new();
+        editContext = new(activity);
+        activitylist = new List<Inqola.Models.Activity>{
+            new Inqola.Models.Activity
+            {
+                ID = 1,
+               Name  = "Shakes",
+               Description = "Chili"
+            },
+            new Inqola.Models.Activity
+            {
+                ID = 2,
+               Name  = "Shakes",
+               Description = "Chili"
+            }
+        };
+    }
+
+    // adding member on the list
+    private void AddActivity()
+    {
+        currentCount--;
+        activitylist.Add(activity);
+    }
+
+    private void OnUpdate(Inqola.Models.Activity activity)
+    {
+        currentCount = activity.ID;
+        editContext = new(activity);
+    }
+}

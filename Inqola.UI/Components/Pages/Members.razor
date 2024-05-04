@@ -1,0 +1,118 @@
+﻿@page "/members"
+@using Inqola.Models;
+
+<h3>Members</h3>
+
+<p role="status">Current count: @currentCount</p>
+
+
+<h1>New Member : @member</h1>
+
+<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Launch demo modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="post" @onsubmit="AddMember" @formname="AddMember-form">
+
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Email address</label>
+                        <InputText @bind-Value="member!.FirstName" placeholder="name@example.com"/>
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    </div>
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" @onclick="AddMember">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Date of Birth</th>
+            <th>Joining Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var member in memberlist)
+        {
+            <tr>
+                <td>@member.FirstName</td>
+                <td>@member.LastName</td>
+                <td>@member.DateOfBirth</td>
+                <td>@member.JoinDate</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+@code {
+
+
+    [SupplyParameterFromForm]
+    public Member member { get; set; }
+
+    private List<Member> memberlist = default;
+    private int currentCount = 0;
+
+    // displaying members from the list
+    protected override async Task OnInitializedAsync()
+    {
+        member = new();
+
+        memberlist = new List<Member>{
+            new Member
+            {
+                FirstName = "Shakes",
+                LastName = "Chili",
+                DateOfBirth = DateTime.Now,
+                JoinDate = DateTime.Today,
+
+            },
+            new Member
+            {
+                FirstName = "Shakes",
+                LastName = "Chili",
+                DateOfBirth = DateTime.Now,
+                JoinDate = DateTime.Today,
+
+            }
+        };
+    }
+
+
+    private void IncrementCount()
+    {
+        currentCount++;
+    }
+
+    // adding member on the list
+    private void AddMember()
+    {
+        currentCount--;
+        memberlist.Add(member);
+    }
+}

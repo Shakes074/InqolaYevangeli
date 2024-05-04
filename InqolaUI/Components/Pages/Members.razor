@@ -1,0 +1,101 @@
+﻿@page "/members"
+@attribute [StreamRendering]
+
+<PageTitle>Members</PageTitle>
+
+<h1>Members</h1>
+
+
+<p>This component demonstrates showing data.</p>
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Launch demo modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                @* <button type="button" class="btn btn-primary" @onclick=@OnShowModalClick>Save changes</button> *@
+                <button type="button" class="btn btn-primary" @onclick="IncrementCount">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr/>
+
+<p role="status">Current count: @currentCount</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>DOB</th>
+            <th>Joining Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var member in memberlist)
+        {
+            <tr>
+                <td>@member.FirstName</td>
+                <td>@member.LastName</td>
+                <td>@member.DateOfBirth</td>
+                <td>@member.JoinDate</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@using BlazorBootstrap
+@using Inqola.Models
+
+
+@functions {
+    void AddMember()
+    {
+        Console.WriteLine("What the hell");
+    }
+}
+
+@code {
+    private List<Member> memberlist;
+    private Modal modal = default!;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        
+
+    }
+
+    private int currentCount = 0;
+
+    private void IncrementCount()
+    {
+        currentCount++;
+    }
+
+    private async Task OnShowModalClick()
+    {
+        Console.WriteLine("What the hell");
+        await modal.ShowAsync();
+    }
+
+    private async Task OnHideModalClick()
+    {
+        await modal.HideAsync();
+    }
+}
