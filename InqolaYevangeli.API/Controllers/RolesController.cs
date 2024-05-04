@@ -16,17 +16,25 @@ public class RolesController : ControllerBase
         _roles = roles;
     }
 
-    [HttpPost]
+    // Register Role
+    [HttpPost("RegisterRole")]
     public IActionResult AddRole([FromBody] Role role)
     {
         return Ok(_roles.AddRole(role));
     }
 
-    [HttpGet]
+    // Get A List Of Role
+    [HttpGet("GetListOfRoles")]
     public IActionResult GetRoles()
     {
         return Ok(_roles.GetRoles());
     }
 
-    
+    // Disable Role
+    [HttpPost("DisableRole")]
+    public IActionResult DisableRole([FromBody] Role role)
+    {
+        return Ok(_roles.AddRole(role));
+    }
+
 }

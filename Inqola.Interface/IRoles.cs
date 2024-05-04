@@ -6,5 +6,6 @@ public interface IRoles
 {
     public bool AddRole(Role role);
     public List<Role>GetRoles();
+    public bool DisableRole(Role role);
     
 }

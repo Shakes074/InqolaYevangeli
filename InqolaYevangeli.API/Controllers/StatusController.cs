@@ -19,4 +19,10 @@ public class StatusController : ControllerBase
     {
         return Ok(status.GetStatusList());
     }
+    [HttpGet("GetStatusById")]
+    public IActionResult GetStatus(int id)
+    {
+        return Ok(status.GetStatus(id));
+    }
+
 }

@@ -35,4 +35,8 @@ public class RoleDAL : IRoles
         return connection.Query<Role>("spSelectRoles", commandType: CommandType.StoredProcedure).ToList();
     }
 
+    public bool DisableRole(Role role)
+    {
+        throw new NotImplementedException();
+    }
 }
