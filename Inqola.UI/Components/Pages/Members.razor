@@ -1,5 +1,6 @@
 ﻿@page "/members"
 @using Inqola.Models;
+@using Inqola.UI.Service
 
 <h3>Members</h3>
 
@@ -27,13 +28,24 @@
                 <form method="post" @onsubmit="AddMember" @formname="AddMember-form">
 
                     <div class="mb-3">
-                        <label for="exampleFormControlInput1" class="form-label">Email address</label>
-                        <InputText @bind-Value="member!.FirstName" placeholder="name@example.com"/>
+                        <label for="exampleFormControlInput1" class="form-label">Name</label>
+                        <InputText @bind-Value="member!.FirstName" placeholder="Your name here"/>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Surname</label>
+                        <InputText @bind-Value="member!.LastName" placeholder="Your surname here" />
                     </div>
                     <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Marital Status</label>
+                        <InputNumber @bind-Value="member!.MaritalStatus" placeholder="Are you married" />
+                    </div>
+
+                    <!--<div class="mb-3">
                         <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
                         <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                    </div>
+                    </div> -->
+
                 </form>
 
             </div>
@@ -56,14 +68,17 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var member in memberlist)
+        @if(memberlist is not null)
         {
-            <tr>
-                <td>@member.FirstName</td>
-                <td>@member.LastName</td>
-                <td>@member.DateOfBirth</td>
-                <td>@member.JoinDate</td>
-            </tr>
+            @foreach (var member in memberlist)
+            {
+                <tr>
+                    <td>@member.FirstName</td>
+                    <td>@member.LastName</td>
+                    <td>@member.DateOfBirth</td>
+                    <td>@member.JoinDate</td>
+                </tr>
+            }
         }
     </tbody>
 </table>
@@ -82,25 +97,7 @@
     protected override async Task OnInitializedAsync()
     {
         member = new();
-
-        memberlist = new List<Member>{
-            new Member
-            {
-                FirstName = "Shakes",
-                LastName = "Chili",
-                DateOfBirth = DateTime.Now,
-                JoinDate = DateTime.Today,
-
-            },
-            new Member
-            {
-                FirstName = "Shakes",
-                LastName = "Chili",
-                DateOfBirth = DateTime.Now,
-                JoinDate = DateTime.Today,
-
-            }
-        };
+        memberlist = await MembersService.GetMemberList();
     }
 
 
