@@ -1,0 +1,60 @@
+﻿@using Inqola.Models
+@using System.Text.Json
+@inherits FeedbackComponent<Inqola.Models.Member>
+
+<Form Model="@_model" Layout="vertical" ValidateMode=@FormValidateMode.Complex>
+    <FormItem Label="First Name" Required>
+        <Input @bind-Value="@context.FirstName" />
+    </FormItem>
+    <FormItem Label="Last Name" Rules=@(new FormValidationRule[]{ new FormValidationRule{ Required = true } })>
+        <Input @bind-Value="@context.LastName" />
+    </FormItem>
+    <FormItem Label="Email Address">
+        <Input @bind-Value="@context.Email" />
+    </FormItem>
+    <FormItem Label="Phone Number">
+        <Input @bind-Value="@context.Phone" />
+    </FormItem>
+</Form>
+
+@code {
+    private Inqola.Models.Member _model;
+    private bool isUpdate = false;
+
+    protected override void OnInitialized()
+    {
+        isUpdate = base.Options.ID <= 0;
+        _model = base.Options ?? new Inqola.Models.Member();
+        base.OnInitialized();
+    }
+
+    private void OnFinish(EditContext editContext)
+    {
+        Console.WriteLine($"Success:{JsonSerializer.Serialize(_model)}");
+        _ = base.FeedbackRef.CloseAsync();
+    }
+
+    private void OnFinishFailed(EditContext editContext)
+    {
+        Console.WriteLine($"Failed:{JsonSerializer.Serialize(_model)}");
+    }
+
+    public override async Task OnFeedbackOkAsync(ModalClosingEventArgs args)
+    {
+        if (isUpdate)
+        {
+            Console.WriteLine("Update API", _model); // Call API to update
+
+        }
+        else
+        {
+            Console.WriteLine("ADD API", _model); // CALL API to ADD
+
+        }
+    }
+    
+    public override async Task OnFeedbackCancelAsync(ModalClosingEventArgs args)
+    {
+        Console.WriteLine("You clicked Cancel button");
+    }
+}

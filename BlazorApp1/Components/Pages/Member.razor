@@ -1,0 +1,127 @@
+﻿@page "/member"
+
+<h3>Member</h3>
+
+
+<Button Type="primary" OnClick="@OnAddMember">
+    Open Modal
+</Button>
+
+<br />
+
+<Table @ref="table"
+       TItem="Inqola.Models.Member"
+       DataSource="@memberList"
+       Total="_total"
+       @bind-PageIndex="_pageIndex"
+       @bind-PageSize="_pageSize"
+       @bind-SelectedRows="selectedRows"
+       OnChange="OnChange"
+       Size="TableSize.Small"
+       RowKey="x=>x.ID">
+
+    <PropertyColumn Title="Id" Property="c=>c.ID" Sortable />
+    <PropertyColumn Title="Name" Property="c=>c.FirstName" />
+    <PropertyColumn Title="Surname" Property="c=>c.LastName" Sortable />
+    <PropertyColumn Title="Date of Birth" Property="c=>c.DateOfBirth" Format="yyyy-MM-dd" Sortable />
+    <PropertyColumn Title="Join Date" Property="c=>c.JoinDate" Sortable />
+
+    <ActionColumn Title="Action">
+        <Space>
+            <SpaceItem><Button OnClick="()=>OnUpdate(context)">Update</Button></SpaceItem>
+        </Space>
+
+        <Space>
+            <SpaceItem><Button Danger OnClick="()=>Delete(context.ID)">Delete</Button></SpaceItem>
+        </Space>
+    </ActionColumn>
+</Table>
+
+<br />
+
+@using AntDesign;
+@using AntDesign.TableModels;
+@using System.Text.Json;
+@using System.ComponentModel;
+@using BlazorApp1.Components.Pages.Modals
+@using Inqola.Models;
+
+@inject ModalService ModalService;
+
+@code {
+    List<Inqola.Models.Member> memberList;
+
+    IEnumerable<Inqola.Models.Member> selectedRows;
+    ITable table;
+
+    int _pageIndex = 1;
+    int _pageSize = 10;
+    int _total = 0;
+
+    protected override async Task OnInitializedAsync()
+    {
+        memberList = new List<Inqola.Models.Member>{ // replace with API call to gell all members from the database
+            new Inqola.Models.Member
+            {
+                ID = 1,
+                FirstName = "Shakes",
+                LastName = "Chili",
+                DateOfBirth = DateTime.Now,
+                JoinDate = DateTime.Today,
+                MaritalStatus = 1,
+            },
+            new Inqola.Models.Member
+            {
+                ID = 2,
+                FirstName = "Shakes",
+                LastName = "Chili",
+                DateOfBirth = DateTime.Now,
+                JoinDate = DateTime.Today,
+                MaritalStatus = 2,
+            }
+        };
+
+        _total = memberList.Count;
+    }
+
+
+    public async Task OnChange(QueryModel<Inqola.Models.Member> queryModel)
+    {
+        Console.WriteLine(JsonSerializer.Serialize(queryModel));
+    }
+
+
+    private void Delete(int id)
+    {
+        memberList = memberList.Where(x => x.ID != id).ToList(); // replace this line with API call to delete Member by Id
+        _total = memberList.Count;
+    }
+
+    // Open Update Modal and Populate with with Data
+    private async Task OnUpdate(Inqola.Models.Member member)
+    {
+        var modalConfig = new ModalOptions
+        {
+            Title = "Update Member Info",
+            Centered = true,
+            OkText = "Update",
+            Width = 500
+        };
+
+        await ModalService.CreateModalAsync<AddMemberModal, Inqola.Models.Member>(modalConfig, member);
+    }
+
+    // Open Add Modal (Empty)
+    private async Task OnAddMember()
+    {
+        var modalConfig = new ModalOptions
+        {
+            Title = "Update Member Info",
+            Centered = true,
+            OkText = "Submit",
+            Width = 500
+        };
+
+        await ModalService.CreateModalAsync<AddMemberModal, Inqola.Models.Member>(modalConfig, new Inqola.Models.Member());
+    }
+}
