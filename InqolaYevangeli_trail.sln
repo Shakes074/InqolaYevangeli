@@ -13,7 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inqola.Interface", "Inqola.
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "InqolaDB", "InqolaDB\InqolaDB.sqlproj", "{3EE7E746-B28F-4232-9AC9-A2BA085D7ECD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inqola.UI", "Inqola.UI\Inqola.UI.csproj", "{4E55F791-6E03-4D3F-B066-DD02133197B2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inqola.UI", "Inqola.UI\Inqola.UI.csproj", "{4E55F791-6E03-4D3F-B066-DD02133197B2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorApp1", "BlazorApp1\BlazorApp1.csproj", "{6378C021-978B-4E14-878E-D3E0F81F62BA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,6 +49,10 @@ Global
 		{4E55F791-6E03-4D3F-B066-DD02133197B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4E55F791-6E03-4D3F-B066-DD02133197B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4E55F791-6E03-4D3F-B066-DD02133197B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6378C021-978B-4E14-878E-D3E0F81F62BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6378C021-978B-4E14-878E-D3E0F81F62BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6378C021-978B-4E14-878E-D3E0F81F62BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6378C021-978B-4E14-878E-D3E0F81F62BA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
