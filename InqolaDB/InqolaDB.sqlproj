@@ -62,4 +62,7 @@
     <Build Include="InqolaDB_DDL.sql" />
     <Build Include="ReadData.sql" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Views.sql" />
+  </ItemGroup>
 </Project>

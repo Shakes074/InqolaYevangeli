@@ -45,6 +45,7 @@
 @using System.ComponentModel;
 @using BlazorApp1.Components.Pages.Modals
 @using Inqola.Models;
+@using BlazorApp1.Service;
 
 @inject ModalService ModalService;
 
@@ -60,27 +61,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        memberList = new List<Inqola.Models.Member>{ // replace with API call to gell all members from the database
-            new Inqola.Models.Member
-            {
-                ID = 1,
-                FirstName = "Shakes",
-                LastName = "Chili",
-                DateOfBirth = DateTime.Now,
-                JoinDate = DateTime.Today,
-                MaritalStatus = 1,
-            },
-            new Inqola.Models.Member
-            {
-                ID = 2,
-                FirstName = "Shakes",
-                LastName = "Chili",
-                DateOfBirth = DateTime.Now,
-                JoinDate = DateTime.Today,
-                MaritalStatus = 2,
-            }
-        };
-
+        memberList = memberList = await MembersService.GetMemberList();
         _total = memberList.Count;
     }
 

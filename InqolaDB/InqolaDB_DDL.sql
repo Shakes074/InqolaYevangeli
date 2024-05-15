@@ -1,9 +1,6 @@
 ﻿CREATE DATABASE InqolaYevangeli;
 GO
 
-USE InqolaYevangeli;
-GO
-
 -- Create the Branches table
 CREATE TABLE Branches (
     ID INT IDENTITY(1,1) PRIMARY KEY,
@@ -27,11 +24,18 @@ CREATE TABLE [Status] (
     Criteria VARCHAR(200) NOT NULL
 );
 
--- Create the Types table
+-- Create the Activity table
 CREATE TABLE Activity (
     ID INT IDENTITY(1,1) PRIMARY KEY,
     [Name] VARCHAR(50) NOT NULL,
     [Description] VARCHAR(200) NOT NULL
+);
+
+-- Create the Employment table
+CREATE TABLE EmployeeStatus(
+ID int identity (1,1) primary key,
+emplyment varchar(50),
+discription varchar(150)
 );
 
 -- Create the Members table
@@ -49,11 +53,11 @@ CREATE TABLE Members (
     BranchID INT NOT NULL,
     StatusID INT NOT NULL,
     RoleID INT NOT NULL,
-    EmplymentStatusID int NOT NULL,
+    EmployeeID int NOT NULL,
     FOREIGN KEY (BranchID) REFERENCES Branches(ID),
     FOREIGN KEY (StatusID) REFERENCES [Status](ID),
     FOREIGN KEY (RoleID) REFERENCES Roles(ID),
-    FOREIGN KEY (EmplymentStatusID) REFERENCES EmploymentStatus(ID)
+    FOREIGN KEY (EmployeeID) REFERENCES EmployeeStatus(ID)
 );    
 
 -- Create the MemberActivities table
@@ -65,22 +69,16 @@ CREATE TABLE MemberActivities (
     FOREIGN KEY (ActivityID) REFERENCES Activity(ID)
 );
 
-CREATE TABLE EmployeeStatus(
-ID int identity (1,1) primary key,
-emplyment varchar(50),
-discription varchar(150)
-);
 
+use InqolaYevangeli;
+GO
 
+drop table [dbo].[Branches];
+drop table [dbo].[Roles];
+drop table [dbo].[Status];
+drop table [dbo].[Activity];
+drop table [dbo].[EmployeeStatus];
+drop table [dbo].[Members];
+drop table [dbo].[MemberActivities];
 
-
-
---CREATE TABLE MemberStatus (
-    --ID INT IDENTITY(1,1) PRIMARY KEY,
-    --MemberID INT NOT NULL,
-    --StatusID INT NOT NULL,
-    --JoiningDate DATE DEFAULT FORMAT(GETDATE(), 'yyyy-MM-dd')NOT NULL,
-    --FOREIGN KEY (MemberID) REFERENCES Members(ID),
-    --FOREIGN KEY (StatusID) REFERENCES [Status](ID)
---);
 

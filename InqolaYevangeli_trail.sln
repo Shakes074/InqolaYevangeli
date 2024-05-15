@@ -15,7 +15,7 @@ Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "InqolaDB", "InqolaDB\Inqola
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inqola.UI", "Inqola.UI\Inqola.UI.csproj", "{4E55F791-6E03-4D3F-B066-DD02133197B2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorApp1", "BlazorApp1\BlazorApp1.csproj", "{6378C021-978B-4E14-878E-D3E0F81F62BA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorApp1", "BlazorApp1\BlazorApp1.csproj", "{6378C021-978B-4E14-878E-D3E0F81F62BA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

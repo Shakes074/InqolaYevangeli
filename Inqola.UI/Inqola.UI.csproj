@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AntDesign" Version="0.19.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Inqola.Models\Inqola.Models.csproj" />
   </ItemGroup>
 

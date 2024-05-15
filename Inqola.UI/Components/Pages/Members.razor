@@ -1,115 +1,108 @@
 ﻿@page "/members"
+
+<h3>Member</h3>
+
+
+<Button Type="primary" OnClick="@OnAddMember">
+    Add Member
+</Button>
+
+<br />
+
+<Table @ref="table"
+       TItem="Inqola.Models.Member"
+       DataSource="@memberList"
+       Total="_total"
+       @bind-PageIndex="_pageIndex"
+       @bind-PageSize="_pageSize"
+       @bind-SelectedRows="selectedRows"
+       OnChange="OnChange"
+       Size="TableSize.Small"
+       RowKey="x=>x.ID">
+
+    <PropertyColumn Title="Id" Property="c=>c.ID" Sortable />
+    <PropertyColumn Title="Name" Property="c=>c.FirstName" />
+    <PropertyColumn Title="Surname" Property="c=>c.LastName" Sortable />
+    <PropertyColumn Title="Date of Birth" Property="c=>c.DateOfBirth" Format="yyyy-MM-dd" Sortable />
+    <PropertyColumn Title="Join Date" Property="c=>c.JoinDate" Sortable />
+
+    <ActionColumn Title="Action">
+        <Space>
+            <SpaceItem><Button OnClick="()=>OnUpdate(context)">Update</Button></SpaceItem>
+        </Space>
+
+        <Space>
+            <SpaceItem><Button Danger OnClick="()=>Delete(context.ID)">Delete</Button></SpaceItem>
+        </Space>
+    </ActionColumn>
+</Table>
+
+<br />
+
+@using AntDesign;
+@using AntDesign.TableModels;
+@using System.Text.Json;
+@using System.ComponentModel;
+@using Inqola.UI.Components.Pages.Modals
 @using Inqola.Models;
 @using Inqola.UI.Service
 
-<h3>Members</h3>
-
-<p role="status">Current count: @currentCount</p>
-
-
-<h1>New Member : @member</h1>
-
-<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
-
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-    Launch demo modal
-</button>
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form method="post" @onsubmit="AddMember" @formname="AddMember-form">
-
-                    <div class="mb-3">
-                        <label for="exampleFormControlInput1" class="form-label">Name</label>
-                        <InputText @bind-Value="member!.FirstName" placeholder="Your name here"/>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="exampleFormControlInput1" class="form-label">Surname</label>
-                        <InputText @bind-Value="member!.LastName" placeholder="Your surname here" />
-                    </div>
-                    <div class="mb-3">
-                        <label for="exampleFormControlInput1" class="form-label">Marital Status</label>
-                        <InputNumber @bind-Value="member!.MaritalStatus" placeholder="Are you married" />
-                    </div>
-
-                    <!--<div class="mb-3">
-                        <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                    </div> -->
-
-                </form>
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" @onclick="AddMember">Save changes</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Surname</th>
-            <th>Date of Birth</th>
-            <th>Joining Date</th>
-        </tr>
-    </thead>
-    <tbody>
-        @if(memberlist is not null)
-        {
-            @foreach (var member in memberlist)
-            {
-                <tr>
-                    <td>@member.FirstName</td>
-                    <td>@member.LastName</td>
-                    <td>@member.DateOfBirth</td>
-                    <td>@member.JoinDate</td>
-                </tr>
-            }
-        }
-    </tbody>
-</table>
-
+@inject ModalService ModalService;
 
 @code {
+    List<Inqola.Models.Member> memberList;
 
+    IEnumerable<Inqola.Models.Member> selectedRows;
+    ITable table;
 
-    [SupplyParameterFromForm]
-    public Member member { get; set; }
+    int _pageIndex = 1;
+    int _pageSize = 10;
+    int _total = 0;
 
-    private List<Member> memberlist = default;
-    private int currentCount = 0;
-
-    // displaying members from the list
     protected override async Task OnInitializedAsync()
     {
-        member = new();
-        memberlist = await MembersService.GetMemberList();
+        memberList = await MembersService.GetMemberList();
+        _total = memberList.Count;
     }
 
 
-    private void IncrementCount()
+    public async Task OnChange(QueryModel<Inqola.Models.Member> queryModel)
     {
-        currentCount++;
+        Console.WriteLine(JsonSerializer.Serialize(queryModel));
     }
 
-    // adding member on the list
-    private void AddMember()
+
+    private void Delete(int id)
     {
-        currentCount--;
-        memberlist.Add(member);
+        memberList = memberList.Where(x => x.ID != id).ToList(); // replace this line with API call to delete Member by Id
+        _total = memberList.Count;
+    }
+
+    // Open Update Modal and Populate with with Data
+    private async Task OnUpdate(Inqola.Models.Member member)
+    {
+        var modalConfig = new ModalOptions
+        {
+            Title = "Update Member Info",
+            Centered = true,
+            OkText = "Update",
+            Width = 500
+        };
+
+        await ModalService.CreateModalAsync<AddMemberModal, Inqola.Models.Member>(modalConfig, member);
+    }
+
+    // Open Add Modal (Empty)
+    private async Task OnAddMember()
+    {
+        var modalConfig = new ModalOptions
+        {
+            Title = "Update Member Info",
+            Centered = true,
+            OkText = "Submit",
+            Width = 500
+        };
+
+        await ModalService.CreateModalAsync<AddMemberModal, Inqola.Models.Member>(modalConfig, new Inqola.Models.Member());
     }
 }

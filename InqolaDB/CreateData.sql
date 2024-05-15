@@ -33,25 +33,7 @@ VALUES
     ('Probationary', 'New members on a probationary period', 'Initial evaluation period before full membership'),
     ('Transferring', 'Members in the process of transferring to another branch', 'Requested a branch transfer');
 
-INSERT INTO YourTableName 
-(FirstName, LastName, MaritalStatus, 
-DateOfBirth, Gender, Email, 
-Phone, [Password], JoinDate, 
-BranchID, StatusID, RoleID)
-
-VALUES
-
-    ('John', 'Doe', 1, '1990-05-15', 'M', 'john.doe@example.com', '555-1234', 'password1', '2022-01-01', 5, 4, 3),
-    ('Jane', 'Smith', 0, '2000-11-22', 'F', 'jane.smith@example.com', '555-5678', 'password2', '2021-06-15', 3, 2, 3),
-    ('Michael', 'Johnson', 1, '2010-03-10', 'M', 'michael.johnson@example.com', '555-9012', 'password3', '2020-09-01', 3, 3, 3),
-    ('Emily', 'Williams', 0, '1995-07-18', 'F', 'emily.williams@example.com', '555-3456', 'password4', '2023-02-28', 2, 4, 2),
-    ('David', 'Brown', 1, '2006-12-05', 'M', 'david.brown@example.com', '555-7890', 'password5', '2022-07-10', 2, 4, 1),
-    ('Sarah', 'Davis', 0, '1991-09-30', 'F', 'sarah.davis@example.com', '555-2345', 'password6', '2021-03-20', 8, 3, 2),
-    ('Robert', 'Wilson', 1, '2019-06-12', 'M', 'robert.wilson@example.com', '555-6789', 'password7', '2019-11-05', 3, 5, 3),
-    ('Jessica', 'Anderson', 0, '1988-02-28', 'F', 'jessica.anderson@example.com', '555-0123', 'password8', '2022-09-15', 3, 1, 3),
-    ('Daniel', 'Taylor', 1, '1980-08-20', 'M', 'daniel.taylor@example.com', '555-4567', 'password9', '2021-12-01', 5, 3, 2),
-    ('Olivia', 'Thomas', 0, '2021-04-03', 'F', 'olivia.thomas@example.com', '555-8901', 'password0', '2023-04-01', 1, 2, 3);
-
+    
 INSERT INTO Activity ([Name], [Description])
 VALUES
     ('Sunday Service', 'Attendance at the weekly Sunday service'),
@@ -65,11 +47,36 @@ VALUES
     ('Baptism', 'Participation in a baptism ceremony'),
     ('Sealing Ceremony', 'Participation in a sealing ceremony');
 
+INSERT INTO EmployeeStatus (emplyment, discription)
+VALUES
+    ('Student', 'Currently enrolled as a student in an educational institution'),
+    ('Unemployed', 'Not currently employed or seeking employment'),
+    ('Employed', 'Currently employed and working for an organization');
+
+INSERT INTO Members 
+(FirstName, LastName, MaritalStatus, 
+DateOfBirth, Gender, Email, 
+Phone, [Password], JoinDate, 
+BranchID, StatusID, RoleID, EmployeeID)
+
+VALUES
+
+    ('John', 'Doe', 1, '1990-05-15', 'M', 'john.doe@example.com', '555-1234', 'password1', '2022-01-01', 5, 4, 3, 3),
+    ('Jane', 'Smith', 0, '2000-11-22', 'F', 'jane.smith@example.com', '555-5678', 'password2', '2021-06-15', 3, 2, 3, 1),
+    ('Michael', 'Johnson', 1, '2010-03-10', 'M', 'michael.johnson@example.com', '555-9012', 'password3', '2020-09-01', 3, 3, 3, 1),
+    ('Emily', 'Williams', 0, '1995-07-18', 'F', 'emily.williams@example.com', '555-3456', 'password4', '2023-02-28', 2, 4, 2, 3),
+    ('David', 'Brown', 1, '2006-12-05', 'M', 'david.brown@example.com', '555-7890', 'password5', '2022-07-10', 2, 4, 1, 1),
+    ('Sarah', 'Davis', 0, '1991-09-30', 'F', 'sarah.davis@example.com', '555-2345', 'password6', '2021-03-20', 8, 3, 2, 3),
+    ('Robert', 'Wilson', 1, '2019-06-12', 'M', 'robert.wilson@example.com', '555-6789', 'password7', '2019-11-05', 3, 5, 3, 1),
+    ('Jessica', 'Anderson', 0, '1988-02-28', 'F', 'jessica.anderson@example.com', '555-0123', 'password8', '2022-09-15', 3, 1, 3, 3),
+    ('Daniel', 'Taylor', 1, '1980-08-20', 'M', 'daniel.taylor@example.com', '555-4567', 'password9', '2021-12-01', 5, 3, 2, 3),
+    ('Olivia', 'Thomas', 0, '2021-04-03', 'F', 'olivia.thomas@example.com', '555-8901', 'password0', '2023-04-01', 1, 2, 3, 1);
+
 INSERT INTO MemberActivities (MemberID, ActivityID)
 VALUES
-    (1, 1), -- John Doe, Sunday Service
-    (1, 2), -- John Doe, Bible Study
-    (2, 1), -- Jane Smith, Sunday Service
+    (5, 2), -- John Doe, Sunday Service
+    (5, 3), -- John Doe, Bible Study
+    (2, 7), -- Jane Smith, Sunday Service
     (3, 1), -- Michael Johnson, Sunday Service
     (3, 3), -- Michael Johnson, Prayer Meeting
     (4, 1), -- Emily Williams, Sunday Service
@@ -78,25 +85,8 @@ VALUES
     (5, 5), -- David Brown, Youth Program
     (6, 1); -- Sarah Jones, Sunday Service
 
-INSERT INTO EmployeeStatus (emplyment, discription)
-VALUES
-    ('Student', 'Currently enrolled as a student in an educational institution'),
-    ('Unemployed', 'Not currently employed or seeking employment'),
-    ('Employed', 'Currently employed and working for an organization');
 
 
-
-
-/**
-INSERT INTO MemberStatus (MemberID, StatusID, JoiningDate)
-VALUES
-    (1, 1, '2022-01-15'),
-    (5, 2, '2021-06-22'),
-    (3, 5, '2023-03-01'),
-    (8, 2, '2020-09-12'),
-    (1, 5, '2022-11-05');
-**/
-    
 --------------------------
     
   

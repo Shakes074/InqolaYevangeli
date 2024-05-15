@@ -1,0 +1,25 @@
+﻿@page "/"
+@using AntDesign
+<PageTitle>Inqolaye Vangeli</PageTitle>
+
+<h1>Welcome to Inqola Yevangeli Church!</h1>
+
+We connect you with God!
+
+
+
+
+@code{
+    private string[] genders = new string[] { "Male", "Female" };
+    
+}
+
+
+
+<Select TItemValue="string" TItem="string" data-bind="@genders">
+    <Button>
+        Select Gender <Icon Type="down" />
+    </Button>
+</Select>
+
+
