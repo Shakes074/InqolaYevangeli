@@ -1,5 +1,11 @@
 ﻿@page "/"
+
 @using AntDesign
+@using BlazorApp1.Components.Layout
+
+@layout LandingLayout;
+
+
 <PageTitle>Inqolaye Vangeli</PageTitle>
 
 <h1>Welcome to Inqola Yevangeli Church!</h1>
@@ -8,18 +14,69 @@ We connect you with God!
 
 
 
+<form>
+    <!-- Email input -->
+    <div data-mdb-input-init class="form-outline mb-4">
+        <input type="email" id="form2Example1" class="form-control" />
+        <label class="form-label" for="form2Example1">Email address</label>
+    </div>
+
+    <!-- Password input -->
+    <div data-mdb-input-init class="form-outline mb-4">
+        <input type="password" id="form2Example2" class="form-control" />
+        <label class="form-label" for="form2Example2">Password</label>
+    </div>
+
+    <!-- Submit button -->
+    <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block mb-4">Sign in</button>
+
+</form>
+
 
 @code{
-    private string[] genders = new string[] { "Male", "Female" };
+
+    public class Gender
+    {
+        public string Value { get; set; }
+        public int Index { get; set; }
+    }
+
+    public List<Gender> genders1 = new List<Gender>();
+
+            
+
+    Gender _selectedValue;
+
+    private void OnChange(Gender selectedGender)
+    {
+        _selectedValue = selectedGender;
+    }
+
+   // private static string[] genders1 = new string[] { "Male", "Female" };
+
+   // string _selectedValue = string.Empty;
     
+    public int x;
+
+    private void OnChange(int selectedIndex)
+    {
+        selectedIndex = x;
+       
+    }
 }
-
-
-
-<Select TItemValue="string" TItem="string" data-bind="@genders">
-    <Button>
-        Select Gender <Icon Type="down" />
-    </Button>
+<Select TItem="Gender"
+        TItemValue="Gender"
+        DataSource="@genders1"
+        @bind-Value="@_selectedValue"
+        Placeholder="Select a Gender"
+        DefaultActiveFirstOption="true"
+        OnChange="(e) => OnChange(e)" OnSelectedItemChanged="(e) => OnChange(x+1)">
 </Select>
+
+<p>
+    The selected gender is 
+    @(_selectedValue) and number is @(x)
+</p>
+
 
 

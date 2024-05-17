@@ -64,5 +64,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Views.sql" />
+    <None Include="SystemFunctions.sql" />
   </ItemGroup>
 </Project>
